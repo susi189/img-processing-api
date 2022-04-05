@@ -1,6 +1,15 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-const myFunc = (num) => {
-    return num * num;
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
 };
-exports.default = myFunc;
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const routes_1 = __importDefault(require("./routes"));
+const app = (0, express_1.default)();
+const port = 3000;
+const inputFile = "./images/beach.jpg";
+app.use("/api", routes_1.default);
+app.listen(port, () => {
+    console.log(`server started at http://localhost:${port}`);
+});
+exports.default = app;
