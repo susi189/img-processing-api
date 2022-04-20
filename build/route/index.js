@@ -4,14 +4,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const img_beach_1 = __importDefault(require("./api/img-beach"));
-const image_2_1 = __importDefault(require("./api/image-2"));
+const transform_1 = __importDefault(require("../utilities/transform"));
 //Create a Router object
 const routes = express_1.default.Router();
 //create a primary endpoint with Get request
-routes.get("/", (req, res) => {
-    res.send("Hello there");
+routes.get("/image", (req, res) => {
+    const widthStr = req.query.width;
+    const heightStr = req.query.height;
+    let width = widthStr;
+    let height = heightStr;
+    (0, transform_1.default)(width, height);
 });
-routes.use("/image1", img_beach_1.default);
-routes.use("/image2", image_2_1.default);
 exports.default = routes;

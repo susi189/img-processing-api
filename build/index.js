@@ -4,11 +4,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const routes_1 = __importDefault(require("./routes"));
+// import { promises as fsPromises } from "fs";
+const route_1 = __importDefault(require("./route"));
 const app = (0, express_1.default)();
 const port = 3000;
-const inputFile = "./images/beach.jpg";
-app.use("/api", routes_1.default);
+app.use("/api", route_1.default);
 app.listen(port, () => {
     console.log(`server started at http://localhost:${port}`);
 });
