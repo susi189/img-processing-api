@@ -14,10 +14,17 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const supertest_1 = __importDefault(require("supertest"));
 const __1 = __importDefault(require(".."));
+const transform_1 = __importDefault(require("../utilities/transform"));
 const request = (0, supertest_1.default)(__1.default);
 describe("Test endpoints", () => {
     it("gets the api endpoint", () => __awaiter(void 0, void 0, void 0, function* () {
         const response = yield request.get("/api");
         expect(response.status).toBe(200);
+    }));
+});
+describe("Test image processing", () => {
+    it("should receive 3 parameters", () => __awaiter(void 0, void 0, void 0, function* () {
+        yield (0, transform_1.default)("beach", 200, 200);
+        expect(transform_1.default).not.toThrow();
     }));
 });

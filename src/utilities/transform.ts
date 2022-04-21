@@ -1,14 +1,16 @@
 import sharp from "sharp";
-import { promises as fs } from "fs";
 
-// const readFile = async () => {
-//   const myFile = await fs.readFile("./images/full/beach.jpg");
-// };
+//transform the picture with sharp
 
-const transform = (width: unknown, height: unknown): void => {
-  sharp("./images/full/beach.jpg")
-    .resize(width as number, height as number)
-    .toFile("./images/beach_thumb.jpg");
+const transform = async (fileName: string, width: number, height: number) => {
+  try {
+    const newFile = await sharp("./images/full/" + fileName + ".jpg")
+      .resize(width, height)
+      .toFile("./images/thumb/" + fileName + "_thumb.jpg");
+    return newFile;
+  } catch (err) {
+    return err;
+  }
 };
 
 export default transform;

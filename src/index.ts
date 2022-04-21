@@ -1,11 +1,12 @@
 import express from "express";
-// import { promises as fsPromises } from "fs";
-import route from "./route";
+import route from "./routes";
 
 const app = express();
 const port = 3000;
 
-app.use("/api", route);
+app.use("/api", route, (req, res) => {
+  res.send("image processing");
+});
 
 app.listen(port, () => {
   console.log(`server started at http://localhost:${port}`);
