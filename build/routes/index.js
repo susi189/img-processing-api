@@ -21,26 +21,25 @@ const routes = express_1.default.Router();
 //create a primary endpoint with Get request
 //check again on the typoe of response and request
 routes.get("/image", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    //extract the parameters form the URL
     const fileNameStr = req.query.filename;
     const widthStr = req.query.width;
     const heightStr = req.query.height;
     let fileName = fileNameStr;
     let width = parseInt(widthStr);
     let height = parseInt(heightStr);
+    //check if width and height are numbers
     if (isNaN(width) || isNaN(height)) {
         throw "Height and width need to be a number";
     }
     else {
-        // const fullFilePath = `${path.resolve(
-        //   __dirname,
-        //   `../../images/full/${fileName}.jpg`
-        // )}`;
         const thumbFilePath = `${path_1.default.resolve(__dirname, `../../images/thumb/${fileName}${width}x${height}_thumb.jpg`)}`;
+        // check if transformed file with the same parameters aready exists if not transform current file
         if (!fs_1.default.existsSync(thumbFilePath)) {
             const transformFile = yield (0, transform_1.default)(fileName, width, height);
         }
+        //send the transformed file
         res.sendFile(thumbFilePath);
-        // res.sendFile(newThumbFile, { root: "./images/thumb" });
     }
 }));
 exports.default = routes;
