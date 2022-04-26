@@ -18,7 +18,7 @@ const transform_1 = __importDefault(require("../utilities/transform"));
 const request = (0, supertest_1.default)(__1.default);
 describe("Test endpoints", () => {
     it("gets the api endpoint", () => __awaiter(void 0, void 0, void 0, function* () {
-        const response = yield request.get("/api");
+        const response = yield request.get("api/image?");
         expect(response.status).toBe(200);
     }));
 });

@@ -7,9 +7,7 @@ const express_1 = __importDefault(require("express"));
 const routes_1 = __importDefault(require("./routes"));
 const app = (0, express_1.default)();
 const port = 3000;
-app.use("/api", routes_1.default, (req, res) => {
-    res.send("image processing");
-});
+app.use("/api", routes_1.default);
 app.listen(port, () => {
     console.log(`server started at http://localhost:${port}`);
 });

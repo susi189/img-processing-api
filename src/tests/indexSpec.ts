@@ -1,12 +1,13 @@
 import supertest from "supertest";
 import app from "..";
 import resizeFunc from "../utilities/transform";
+import routes from "../routes";
 
 const request = supertest(app);
 
 describe("Test endpoints", () => {
   it("gets the api endpoint", async () => {
-    const response = await request.get("/api");
+    const response = await request.get("api/image?");
     expect(response.status).toBe(200);
   });
 });

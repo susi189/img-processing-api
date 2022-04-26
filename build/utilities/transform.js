@@ -18,7 +18,7 @@ const transform = (fileName, width, height) => __awaiter(void 0, void 0, void 0,
     try {
         const newFile = yield (0, sharp_1.default)("./images/full/" + fileName + ".jpg")
             .resize(width, height)
-            .toFile("./images/thumb/" + fileName + "_thumb.jpg");
+            .toFile("./images/thumb/" + fileName + width + "x" + height + "_thumb.jpg");
         return newFile;
     }
     catch (err) {

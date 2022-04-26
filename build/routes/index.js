@@ -1,29 +1,46 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const path_1 = __importDefault(require("path"));
 const transform_1 = __importDefault(require("../utilities/transform"));
+const fs_1 = __importDefault(require("fs"));
 //Create a Router object
 const routes = express_1.default.Router();
 //create a primary endpoint with Get request
-routes.get("/image", (req, res) => {
+//check again on the typoe of response and request
+routes.get("/image", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const fileNameStr = req.query.filename;
     const widthStr = req.query.width;
     const heightStr = req.query.height;
-    let fileName;
-    fileName = fileNameStr;
-    let width;
-    width = parseInt(widthStr);
-    let height;
-    height = parseInt(heightStr);
-    if (fileName && width && height) {
-        (0, transform_1.default)(fileName, width, height);
-        res.sendFile(fileName + "_thumb.jpg", { root: "./images/thumb" });
+    let fileName = fileNameStr;
+    let width = parseInt(widthStr);
+    let height = parseInt(heightStr);
+    if (isNaN(width) || isNaN(height)) {
+        throw "Height and width need to be a number";
     }
     else {
-        throw "Missing parameter";
+        // const fullFilePath = `${path.resolve(
+        //   __dirname,
+        //   `../../images/full/${fileName}.jpg`
+        // )}`;
+        const thumbFilePath = `${path_1.default.resolve(__dirname, `../../images/thumb/${fileName}${width}x${height}_thumb.jpg`)}`;
+        if (!fs_1.default.existsSync(thumbFilePath)) {
+            const transformFile = yield (0, transform_1.default)(fileName, width, height);
+        }
+        res.sendFile(thumbFilePath);
+        // res.sendFile(newThumbFile, { root: "./images/thumb" });
     }
-});
+}));
 exports.default = routes;
