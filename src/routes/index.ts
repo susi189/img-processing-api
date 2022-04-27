@@ -13,30 +13,37 @@ routes.get(
   "/image",
   async (req: express.Request, res: express.Response): Promise<void> => {
     //extract the parameters form the URL
-    const fileNameStr = req.query.filename as string;
-    const widthStr = req.query.width as string;
-    const heightStr = req.query.height as string;
+    try {
+      const fileNameStr = req.query.filename as string;
+      const widthStr = req.query.width as string;
+      const heightStr = req.query.height as string;
 
-    let fileName = fileNameStr;
-    let width = parseInt(widthStr);
-    let height = parseInt(heightStr);
+      let fileName = fileNameStr;
+      let width = parseInt(widthStr);
+      let height = parseInt(heightStr);
 
-    //check if width and height are numbers
+      //check if width and height are numbers
+      if (isNaN(width) || isNaN(height)) {
+        throw "Expected parameter width and height as number";
+      } else if (width <= 0 || height <= 0) {
+        throw "Parameter width and height need to be > 0";
+      } else if (!fileName) {
+        throw "Missing parameter filename";
+      } else {
+        const thumbFilePath = `${path.resolve(
+          __dirname,
+          `../../images/thumb/${fileName}${width}x${height}_thumb.jpg`
+        )}`;
 
-    if (isNaN(width) || isNaN(height)) {
-      throw "Height and width need to be a number";
-    } else {
-      const thumbFilePath = `${path.resolve(
-        __dirname,
-        `../../images/thumb/${fileName}${width}x${height}_thumb.jpg`
-      )}`;
-
-      // check if transformed file with the same parameters aready exists if not transform current file
-      if (!fs.existsSync(thumbFilePath)) {
-        const transformFile = await transform(fileName, width, height);
+        // check if transformed file with the same parameters aready exists if not transform current file
+        if (!fs.existsSync(thumbFilePath)) {
+          const transformFile = await transform(fileName, width, height);
+        }
+        //send the transformed file
+        res.sendFile(thumbFilePath);
       }
-      //send the transformed file
-      res.sendFile(thumbFilePath);
+    } catch (error) {
+      console.log(error);
     }
   }
 );
