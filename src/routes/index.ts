@@ -17,9 +17,9 @@ routes.get(
       const widthStr = req.query.width as string;
       const heightStr = req.query.height as string;
 
-      let fileName = fileNameStr;
-      let width = parseInt(widthStr);
-      let height = parseInt(heightStr);
+      const fileName = fileNameStr;
+      const width = parseInt(widthStr);
+      const height = parseInt(heightStr);
 
       //check parameters
       if (isNaN(width) || isNaN(height)) {
@@ -36,7 +36,7 @@ routes.get(
 
         // check if transformed file with the same parameters aready exists if not transform current file
         if (!fs.existsSync(thumbFilePath)) {
-          const transformFile = await transform(fileName, width, height);
+          await transform(fileName, width, height);
         }
         //send the transformed file
         res.sendFile(thumbFilePath);
