@@ -8,7 +8,6 @@ const routes = express.Router();
 
 //create a primary endpoint with Get request
 
-//check again on the typoe of response and request
 routes.get(
   "/image",
   async (req: express.Request, res: express.Response): Promise<void> => {
