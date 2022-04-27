@@ -22,7 +22,7 @@ routes.get(
       let width = parseInt(widthStr);
       let height = parseInt(heightStr);
 
-      //check if width and height are numbers
+      //check parameters
       if (isNaN(width) || isNaN(height)) {
         throw "Expected parameter width and height as number";
       } else if (width <= 0 || height <= 0) {
