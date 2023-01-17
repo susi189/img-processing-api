@@ -1,6 +1,7 @@
 **Image Processing API**
 
-![Demo](https://media.giphy.com/media/BLfyieRpfX1rgM1fDB/giphy.gif)
+https://user-images.githubusercontent.com/34241573/212999572-249fb2a0-8ab1-4268-a7a0-ce2b4e949fed.mov
+
 
 In this project I build an API unsing node/express and sharp module that is changing the size of an image, based on given parameters.
 
