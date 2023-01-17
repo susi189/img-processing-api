@@ -1,4 +1,4 @@
-**Image Processing API - udacity nanodegree project**
+**Image Processing API**
 
 ![Demo](https://media.giphy.com/media/BLfyieRpfX1rgM1fDB/giphy.gif)
 
